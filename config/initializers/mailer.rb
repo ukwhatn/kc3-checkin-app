@@ -11,7 +11,7 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = {
-    host: ENV['APP_HOST'], port: Rails.env.development? ? ENV['APP_PORT'] : nil ,
+    host: ENV['APP_HOST'], port: Rails.env.development? ? ENV['APP_PORT'] : nil,
     protocol: Rails.env.development? ? 'http' : 'https'
   }
 end

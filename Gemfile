@@ -43,7 +43,6 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "bootsnap", require: false
 
 # Use Sass to process CSS
-gem "dartsass-rails"
 gem "sassc-rails"
 
 # Use Active Storage variants
@@ -72,6 +71,11 @@ gem "rails-i18n"
 gem "chunky_png"
 gem "rqrcode"
 gem "rqrcode_png"
+
+# bootstrap
+gem "bootstrap", "~> 5.3.1"
+gem "jquery-rails"
+gem "mini_racer"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

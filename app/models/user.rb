@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :qr_token, presence: true, uniqueness: true
 
   # === enum ===
-  enum grade, [:first, :second, :third, :fourth, :fifth, :sixth, :master, :doctor]
+  enum :grade, [:b1, :b2, :b3, :b4, :m, :d]
 
   # === methods ===
   # 作成

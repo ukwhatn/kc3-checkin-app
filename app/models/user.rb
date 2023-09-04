@@ -46,7 +46,7 @@ class User < ApplicationRecord
   end
 
   # セッションからユーザーを取得
-  def self.logged_in
+  def self.logged_in(session)
     return User.find_by(id: session[:user_id])
   end
 end

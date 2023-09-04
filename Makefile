@@ -25,6 +25,9 @@ clean-dev:
 log-dev:
 	docker compose -f compose.dev.yml logs -f
 
+console-dev:
+	docker compose -f compose.dev.yml exec -it web bash
+
 prod:
 	make build-prod
 	make up-prod

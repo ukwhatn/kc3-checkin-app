@@ -12,15 +12,25 @@ services:
       - .:/usr/src/app
       - bundle:/usr/local/bundle
     ports:
-      - "127.0.0.1:59998:3000"
+      - "127.0.0.1:${DEV_APP_PORT}:3000"
     environment:
       - HISTFILE=/usr/src/app/log/.bash_history
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=true
+      - SECRET_KEY_BASE=${STG_SECRET_KEY_BASE}
+      - APP_HOST=${STG_APP_HOST}
+      - APP_PORT=${STG_APP_PORT}
       - DB_HOST=${STG_DB_HOST}
       - DB_PORT=${STG_DB_PORT}
       - DB_USER=${STG_DB_USER}
       - DB_PASSWORD=${STG_DB_PASSWORD}
+      - SMTP_ADDRESS=${STG_SMTP_ADDRESS}
+      - SMTP_PORT=${STG_SMTP_PORT}
+      - SMTP_DOMAIN=${STG_SMTP_DOMAIN}
+      - SMTP_USERNAME=${STG_SMTP_USERNAME}
+      - SMTP_PASSWORD=${STG_SMTP_PASSWORD}
+      - SMTP_SENDER_NAME=${STG_SMTP_SENDER_NAME}
+      - SMTP_SENDER_EMAIL=${STG_SMTP_SENDER_EMAIL}
     depends_on:
       db:
         condition: service_healthy

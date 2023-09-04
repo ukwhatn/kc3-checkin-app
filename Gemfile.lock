@@ -87,6 +87,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    chunky_png (1.4.0)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     dartsass-rails (0.5.0)
@@ -227,6 +228,13 @@ GEM
     reline (0.3.8)
       io-console (~> 0.5)
     rexml (3.2.6)
+    rqrcode (2.2.0)
+      chunky_png (~> 1.0)
+      rqrcode_core (~> 1.0)
+    rqrcode_core (1.2.0)
+    rqrcode_png (0.1.5)
+      chunky_png
+      rqrcode
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.3)
@@ -342,6 +350,7 @@ DEPENDENCIES
   brakeman
   bundler-audit
   capybara
+  chunky_png
   dartsass-rails
   debug (= 1.8.0)
   i18n_generators
@@ -355,6 +364,8 @@ DEPENDENCIES
   rails-i18n
   redis (~> 4.8.1, < 5)
   redis-rails
+  rqrcode
+  rqrcode_png
   rspec-rails
   rubocop
   rubocop-performance

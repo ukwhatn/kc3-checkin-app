@@ -68,6 +68,11 @@ gem "rails-i18n"
 # csrf protection for omniauth
 # gem "omniauth-rails_csrf_protection"
 
+# QR code generator
+gem "chunky_png"
+gem "rqrcode"
+gem "rqrcode_png"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "brakeman"

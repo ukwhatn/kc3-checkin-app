@@ -38,6 +38,7 @@ class Common::AuthenticationsController < ApplicationController
       admin = Admin.find_or_create_by!(email: auth.email)
       admin.login(session)
       redirect_to admin_events_path
+      return
     end
 
     # それ以外のドメインの場合は、Userの存在判定

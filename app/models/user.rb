@@ -44,4 +44,9 @@ class User < ApplicationRecord
   def attended_events
     self.attendances.map(&:event).uniq
   end
+
+  # セッションからユーザーを取得
+  def self.find_by_session
+    return User.find_by(id: session[:user_id])
+  end
 end

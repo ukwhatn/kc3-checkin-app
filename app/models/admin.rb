@@ -11,4 +11,9 @@ class Admin < ApplicationRecord
   def self.create_admin(email)
     return Admin.create(email:)
   end
+
+  # セッションから管理者を取得
+  def self.find_by_session
+    return Admin.find_by(id: session[:admin_id])
+  end
 end

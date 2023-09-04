@@ -1,2 +1,12 @@
-// Custom bootstrap variables must be set or imported *before* bootstrap.
+// variable overrides
+// custom color pallet for bootstrap5
+$primary: #4263eb;
+$secondary: #868e96;
+$success: #12b886;
+$danger: #fa5252;
+$warning: #ffd43b;
+$info: #15aabf;
+$light: #f1f3f5;
+$dark: #343a40;
+
 @import "bootstrap";

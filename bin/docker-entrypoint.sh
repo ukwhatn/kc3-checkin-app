@@ -14,11 +14,8 @@ bundle exec rake db:create
 echo "rails: migrating database..."
 bundle exec rake db:migrate
 
-# productionモードの場合はassetsをコンパイルする
-if [ "$RAILS_ENV" = 'production' ]; then
-  echo "rails: precompiling assets..."
-  bundle exec rake assets:precompile
-fi
+echo "rails: precompiling assets..."
+bundle exec rake assets:precompile
 
 # Then exec the container's main process (what's set as CMD in the Dockerfile).
 exec "$@"

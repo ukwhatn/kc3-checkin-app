@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="ab2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 730 950">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g>
+    <rect class="cls-1" x="0" y="0" width="300" height="280"/>
+    <rect class="cls-1" x="330" y="0" width="80" height="80"/>
+    <rect class="cls-1" x="330" y="95" width="185" height="185"/>
+    <rect class="cls-1" x="330" y="310" width="185" height="185"/>
+    <rect class="cls-1" x="545" y="310" width="185" height="185"/>
+    <rect class="cls-1" x="190" y="310" width="110" height="185"/>
+  </g>
+  <g id="text-outline">
+    <polygon class="cls-1" points="98.78 950 40 950 40 740 98.78 740 98.78 827.89 194.84 740 250 740 147.56 842.37 250 950 194.84 950 98.78 862.11 98.78 950"/>
+    <polygon class="cls-1" points="338.78 914.03 490 914.03 490 950 280 950 280 740 490 740 490 775.97 338.78 775.97 338.78 914.03"/>
+    <polygon class="cls-1" points="520 775.97 520 740 730 740 730 950 520 950 520 914.03 674.84 914.03 674.84 862.11 520 862.11 520 827.89 674.84 827.89 674.84 775.97 520 775.97"/>
+  </g>
+  <rect class="cls-1" x="190" y="525" width="540" height="185"/>
+  <path class="cls-1" d="m545,95v185h185V95h-185Zm137.5,137.5h-90v-90h90v90Z"/>
+</svg>

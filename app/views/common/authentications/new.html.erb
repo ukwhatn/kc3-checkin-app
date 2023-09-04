@@ -1,2 +1,24 @@
-<h1>Common::Authentications#new</h1>
-<p>Find me in app/views/common/authentications/new.html.erb</p>
+<% content_for(:title, "新規登録・ログイン") %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 text-center">
+      <div>
+        メールアドレスを入力してください
+      </div>
+      <div class="my-2" style="font-size: 75%">
+        認証URLが送信されます
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <%= form_with model: @new_auth, url: auth_path, method: :post do |f| %>
+        <div class="input-group">
+          <%= f.email_field :email, class: "form-control", placeholder: "xxx@example.com" %>
+          <%= f.submit "送信", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

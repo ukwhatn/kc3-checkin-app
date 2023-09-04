@@ -2,7 +2,7 @@ class EmailAuth < ApplicationRecord
   # === validations ===
 
   validates :token, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true, format: {
+  validates :email, presence: true, format: {
     with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i,
     message: "はメールアドレスの形式で入力してください"
   }
@@ -15,14 +15,23 @@ class EmailAuth < ApplicationRecord
     # トークンを生成
     token = SecureRandom.hex(64)
     # トークンをDBに保存
-    EmailAuth.create!(token:, email:, is_expired: false)
-    # トークンを返す
-    token
+    res = EmailAuth.create(token:, email:, is_expired: false)
+
+    puts token
+    puts res.token
+
+    if res
+      # トークンを返す
+      token
+    else
+      # トークンの保存に失敗した場合はnilを返す
+      nil
+    end
   end
 
   # 期限が切れていないトークンを取得
   def self.find_in_valid_token(token)
-    EmailAuth.find_by(token:, is_expired: false, created_at: 15.minutes.ago..Time.now)
+    EmailAuth.find_by(token:, is_expired: false, created_at: 15.minutes.ago..Time.current)
   end
 
   # トークンを無効化

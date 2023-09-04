@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     # authentications controller
     get 'auth' => 'authentications#new'
     post 'auth' => 'authentications#create'
+    get 'auth/sent' => 'authentications#sent'
     get 'token' => 'authentications#token'
 
     # sessions controller

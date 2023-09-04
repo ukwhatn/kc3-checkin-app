@@ -49,4 +49,9 @@ class User < ApplicationRecord
   def self.logged_in(session)
     return User.find_by(id: session[:user_id])
   end
+
+  # ログイン
+  def login(session)
+    session[:user_id] = self.id
+  end
 end

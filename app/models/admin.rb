@@ -16,4 +16,9 @@ class Admin < ApplicationRecord
   def self.logged_in(session)
     return Admin.find_by(id: session[:admin_id])
   end
+
+  # ログイン
+  def login(session)
+    session[:admin_id] = self.id
+  end
 end

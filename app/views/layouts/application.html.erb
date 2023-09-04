@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
   <title><%= content_for?(:title) ? "#{yield(:title)} | KC3 2023" : "KC3 2023" %></title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,13 +12,54 @@
 
 <body class="bg-light">
 <header>
-
+  <nav class="navbar bg-black p-1">
+    <div class="container">
+      <%= link_to root_path, class: "navbar-brand mx-auto" do %>
+        <%= image_tag "common/kc3-logo-white-w-text.svg", height: 40 %>
+      <% end %>
+    </div>
+  </nav>
 </header>
-<main>
-  <%= yield %>
+<main class="min-vh-100">
+  <div class="container-lg">
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="
+          d-inline-block
+          mx-auto px-5 pb-2 mt-4 mb-2
+          border-bottom border-1 border-dark
+          text-center fs-4">
+          <%= yield(:title) %>
+        </div>
+        <% if notice.present? %>
+          <div class="text-success my-4" style="font-size: 90%">
+            <%= notice %>
+          </div>
+        <% end %>
+        <% if alert.present? %>
+          <div class="text-danger my-4" style="font-size: 90%">
+            <%= alert %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 </main>
 <footer>
-
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <p class="text-muted">
+          &copy; 2023 NPO法人NxTEND
+        </p>
+      </div>
+    </div>
+  </div>
 </footer>
 </body>
 </html>

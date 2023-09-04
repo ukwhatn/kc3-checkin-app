@@ -13,7 +13,7 @@ class Admin < ApplicationRecord
   end
 
   # セッションから管理者を取得
-  def self.find_by_session
+  def self.logged_in
     return Admin.find_by(id: session[:admin_id])
   end
 end

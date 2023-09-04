@@ -8,10 +8,6 @@ class Univ < ApplicationRecord
   # === methods ===
   # 作成・取得
   def self.get(name)
-    univ = Univ.find_by(name:)
-    if univ.nil?
-      univ = Univ.create(name:)
-    end
-    return univ
+    return Univ.find_or_create_by(name:)
   end
 end

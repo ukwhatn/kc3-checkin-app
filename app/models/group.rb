@@ -8,10 +8,6 @@ class Group < ApplicationRecord
   # === methods ===
   # 作成・取得
   def self.get(name)
-    group = Group.find_by(name:)
-    if group.nil?
-      group = Group.create(name:)
-    end
-    return group
+    return Group.find_or_create_by(name:)
   end
 end

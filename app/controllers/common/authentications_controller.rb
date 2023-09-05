@@ -1,4 +1,6 @@
 class Common::AuthenticationsController < ApplicationController
+  before_action :logged_in?
+
   def new
     @new_auth = EmailAuth.new
   end
@@ -57,5 +59,12 @@ class Common::AuthenticationsController < ApplicationController
 
   def admins_domain?(email)
     email.end_with?("@kc3.me", "@nxtend.or.jp")
+  end
+
+  def logged_in?
+    # ログイン済ユーザにアクセスさせない
+    if @current_admin || @current_user
+      redirect_to root_path
+    end
   end
 end

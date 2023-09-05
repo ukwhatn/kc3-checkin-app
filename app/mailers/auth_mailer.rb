@@ -1,6 +1,7 @@
 class AuthMailer < ApplicationMailer
-  def send_auth(email, token)
+  def send_auth(email, token, is_admin = false)
     @token = token
-    mail to: email, subject: "【KC3】ログイン認証"
+    @is_admin = is_admin
+    mail to: email, subject: is_admin ? "【KC3】管理者ログイン認証" : "【KC3】ログイン認証"
   end
 end

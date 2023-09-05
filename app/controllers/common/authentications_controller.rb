@@ -7,7 +7,7 @@ class Common::AuthenticationsController < ApplicationController
     email = params[:email_auth][:email]
     token = EmailAuth.create_token(email)
     if token
-      AuthMailer.send_auth(email, token).deliver
+      AuthMailer.send_auth(email, token, admins_domain?(email)).deliver
       redirect_to auth_sent_path
     else
       @new_auth = EmailAuth.new(email:)
@@ -34,7 +34,7 @@ class Common::AuthenticationsController < ApplicationController
 
     # ログイン処理
     # kc3.me / nxtend.or.jpドメインの場合は、Adminとしてログイン
-    if auth.email.end_with?("@kc3.me", "@nxtend.or.jp")
+    if admins_domain?(auth.email)
       admin = Admin.find_or_create_by!(email: auth.email)
       admin.login(session)
       redirect_to admin_events_path
@@ -51,5 +51,11 @@ class Common::AuthenticationsController < ApplicationController
       session[:unsaved_email] = auth.email
       redirect_to user_registration_path
     end
+  end
+
+  private
+
+  def admins_domain?(email)
+    email.end_with?("@kc3.me", "@nxtend.or.jp")
   end
 end

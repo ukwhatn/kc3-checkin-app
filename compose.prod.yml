@@ -5,14 +5,15 @@ services:
       dockerfile: ./deployment/dockerfiles/web/Dockerfile
       args:
         RUBY_VERSION: 3.2.2
-    image: web-dev
+    image: web-prod
     entrypoint: [ "bin/docker-entrypoint.sh" ]
     command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/usr/src/app
       - bundle:/usr/local/bundle
     ports:
-      - "127.0.0.1:${DEV_APP_PORT}:3000"
+      - "127.0.0.1:${PROD_APP_PORT}:3000"
+      - ${PROD_EXTRA_HOST}:3000
     environment:
       - HISTFILE=/usr/src/app/log/.bash_history
       - RAILS_ENV=production

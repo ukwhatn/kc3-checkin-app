@@ -13,6 +13,7 @@ services:
       - bundle:/usr/local/bundle
     ports:
       - "127.0.0.1:${DEV_APP_PORT}:3000"
+      - ${DEV_EXTRA_HOST}:3000
     environment:
       - HISTFILE=/usr/src/app/log/.bash_history
       - RAILS_ENV=development

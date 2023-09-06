@@ -1,4 +1,4 @@
-secure = Rails.env.production?
+secure = false
 key = Rails.env.production? ? "_app_session" : "_app_session_#{Rails.env}"
 domain = ENV.fetch("APP_DOMAIN", "localhost")
 

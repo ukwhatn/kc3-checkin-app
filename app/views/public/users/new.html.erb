@@ -1,2 +1,76 @@
-<h1>Public::Users#new</h1>
-<p>Find me in app/views/public/users/new.html.erb</p>
+<% content_for(:title, "新規登録") %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 text-center">
+      <div>
+        新規登録を行います
+      </div>
+      <div class="my-2" style="font-size: 75%">
+        以下の情報を入力してください
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <% if @new_user.errors.any? %>
+        <div class="alert alert-danger" style="font-size: 90%" role="alert">
+          <ul class="mb-0">
+            <% @new_user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%= form_with model: @new_user, url: user_registration_confirm_path, method: :post, data: { turbo: false } do |f| %>
+        <div class="mt-3">
+          <%= f.label :email, class: "form-label" %>
+          <div class="input-group">
+            <%= f.email_field :email, class: "form-control", readonly: true %>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <%= f.label :last_name, "氏名", class: "form-label" %>
+          <div class="input-group">
+            <%= f.text_field :last_name, class: "form-control", placeholder: "関西" %>
+            <%= f.text_field :first_name, class: "form-control", placeholder: "太郎" %>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <%= f.label :univ, "所属大学", class: "form-label" %>
+          <div class="input-group">
+            <%= f.text_field :univ_name, class: "form-control", placeholder: "〇〇大学", value: @new_user.univ.present? ? @new_user.univ.name : "" %>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <%= f.label :grade, "学年", class: "form-label" %>
+          <div class="input-group">
+            <%= f.select :grade, User.grades.keys.map { |k| [t("enums.user.grade.#{k}"), k] }, { include_blank: "選択してください" }, class: "form-select" %>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <%= f.label :group_id, "所属団体", class: "form-label" %>
+          <div class="input-group">
+            <%= f.collection_select :group_id, @groups, :id, :name, { include_blank: "選択してください" }, { class: "form-select" } %>
+          </div>
+          <div class="text-end" style="font-size: 75%">
+            ※ 所属団体がない場合は「無所属」を選択してください
+          </div>
+        </div>
+
+        <div class="my-5">
+          <%= f.submit "次へ", class: "btn btn-primary mx-auto px-5 d-block" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+    history.replaceState('', '', '/user/registration');
+</script>

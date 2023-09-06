@@ -8,6 +8,9 @@
 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
+
+  <script src="https://kit.fontawesome.com/de94618f66.js" crossorigin="anonymous"></script>
+  <%= hotwire_livereload_tags if Rails.env.development? %>
 </head>
 
 <body class="bg-light">
@@ -17,6 +20,17 @@
       <%= link_to root_path, class: "navbar-brand mx-auto" do %>
         <%= image_tag "common/kc3-logo-white-w-text.svg", height: 40 %>
       <% end %>
+      <div class="d-block position-absolute end-0 fs-4 me-3">
+        <% if @current_user || @current_admin %>
+          <%= link_to session_path, class: "text-light", data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" } do %>
+            <i class="fa-solid fa-right-from-bracket"></i>
+          <% end %>
+        <% else %>
+          <%= link_to auth_path, class: "text-light" do %>
+            <i class="fa-solid fa-right-to-bracket"></i>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </nav>
 </header>

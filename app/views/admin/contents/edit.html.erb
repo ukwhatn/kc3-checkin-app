@@ -1,2 +1,8 @@
-<h1>Admin::Contents#edit</h1>
-<p>Find me in app/views/admin/contents/edit.html.erb</p>
+<% content_for(:title, "コンテンツ編集") %>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <%= render partial: "admin/contents/components/form", locals: {model: @content, path: admin_event_timetable_content_path(@event, @timetable, @content)} %>
+    </div>
+  </div>
+</div>

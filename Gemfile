@@ -49,6 +49,7 @@ gem "sassc-rails"
 gem "image_processing", "~> 1.2"
 
 # for localize
+gem "enum_help"
 gem "i18n_generators"
 gem "rails-i18n"
 
@@ -95,6 +96,9 @@ group :development do
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   gem "rack-mini-profiler"
+
+  # livereload
+  gem "hotwire-livereload"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"

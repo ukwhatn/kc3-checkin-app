@@ -1,7 +1,9 @@
 class Api::V1::EventsController < ApplicationController
-  def index
-  end
+  skip_before_action :verify_authenticity_token
+  before_action :require_api_key
 
-  def show
+  def index
+    events = Event.all.pluck(:id, :name, :start_at, :end_at)
+    render json: events
   end
 end

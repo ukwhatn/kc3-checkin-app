@@ -17,6 +17,7 @@ services:
       - HISTFILE=/usr/src/app/log/.bash_history
       - RAILS_ENV=development
       - SECRET_KEY_BASE=${DEV_SECRET_KEY_BASE}
+      - API_TOKEN=${DEV_API_TOKEN}
       - APP_HOST=${DEV_APP_HOST}
       - APP_PORT=${DEV_APP_PORT}
       - DB_HOST=${DEV_DB_HOST}

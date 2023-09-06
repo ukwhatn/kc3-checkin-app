@@ -14,6 +14,9 @@ bundle exec rake db:create
 echo "rails: migrating database..."
 bundle exec rake db:migrate
 
+echo "rails: seeding database..."
+bundle exec rake db:seed
+
 echo "rails: precompiling assets..."
 bundle exec rake assets:precompile
 

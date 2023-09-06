@@ -17,9 +17,6 @@ class EmailAuth < ApplicationRecord
     # トークンをDBに保存
     res = EmailAuth.create(token:, email:, is_expired: false)
 
-    puts token
-    puts res.token
-
     if res
       # トークンを返す
       token

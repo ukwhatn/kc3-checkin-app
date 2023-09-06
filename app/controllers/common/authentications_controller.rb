@@ -1,5 +1,5 @@
 class Common::AuthenticationsController < ApplicationController
-  before_action :logged_in?
+  before_action :require_not_authenticated
 
   def new
     @new_auth = EmailAuth.new
@@ -23,7 +23,6 @@ class Common::AuthenticationsController < ApplicationController
   def token
     token = params[:token]
     auth = EmailAuth.find_in_valid_token(token)
-    puts auth
 
     # tokenが無効な場合は、エラーを表示して終了
     unless auth
@@ -50,7 +49,7 @@ class Common::AuthenticationsController < ApplicationController
       user.login(session)
       redirect_to my_page_path
     else
-      session[:unsaved_email] = auth.email
+      session[:email_auth_id] = auth.id
       redirect_to user_registration_path
     end
   end
@@ -59,12 +58,5 @@ class Common::AuthenticationsController < ApplicationController
 
   def admins_domain?(email)
     email.end_with?("@kc3.me", "@nxtend.or.jp")
-  end
-
-  def logged_in?
-    # ログイン済ユーザにアクセスさせない
-    if @current_admin || @current_user
-      redirect_to root_path
-    end
   end
 end

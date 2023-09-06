@@ -1,2 +1,8 @@
-<h1>Admin::Events#edit</h1>
-<p>Find me in app/views/admin/events/edit.html.erb</p>
+<% content_for(:title, "イベント編集") %>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <%= render partial: "admin/events/components/form", locals: {model: @event, path: admin_event_path(@event)} %>
+    </div>
+  </div>
+</div>

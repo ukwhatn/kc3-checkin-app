@@ -1,0 +1,22 @@
+<%= form_with model: model, url: path do |f| %>
+  <div class="mt-3">
+    <%= f.label :name, class: "form-label" %>
+    <div class="input-group">
+      <%= f.text_field :name, class: "form-control", placeholder: "KC3Hack 2099" %>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <%= f.label :start_at %>／<%= f.label :end_at %>
+    <div class="input-group">
+      <%= f.datetime_field :start_at, class: "form-control" %>
+      <%= f.datetime_field :end_at, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <div class="input-group">
+      <%= f.submit "Submit", class: "btn btn-primary mx-auto d-block" %>
+    </div>
+  </div>
+<% end %>

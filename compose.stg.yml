@@ -18,6 +18,7 @@ services:
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=true
       - SECRET_KEY_BASE=${STG_SECRET_KEY_BASE}
+      - API_TOKEN=${STG_API_TOKEN}
       - APP_HOST=${STG_APP_HOST}
       - APP_PORT=${STG_APP_PORT}
       - DB_HOST=${STG_DB_HOST}

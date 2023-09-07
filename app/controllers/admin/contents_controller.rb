@@ -17,7 +17,8 @@ class Admin::ContentsController < ApplicationController
     @event = Event.find(params[:event_id])
     @timetable = Timetable.find(params[:timetable_id])
     @content = Content.find(params[:id])
-    @new_attendance = @content.attendances.build
+    @attendances = @content.attendances
+    @new_attendance = Attendance.new
   end
 
   def edit

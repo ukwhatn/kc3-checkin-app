@@ -7,6 +7,11 @@ class Common::AuthenticationsController < ApplicationController
 
   def create
     email = params[:email_auth][:email]
+
+    unless email.present?
+      redirect_to auth_path, alert: "メールアドレスを入力してください"
+    end
+
     token = EmailAuth.create_token(email)
     if token
       AuthMailer.send_auth(email, token, admins_domain?(email)).deliver

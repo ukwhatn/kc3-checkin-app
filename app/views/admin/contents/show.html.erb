@@ -3,7 +3,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6 mt-3 mx-auto text-center">
-      <%= link_to "前のページに戻る", admin_event_timetable_path(@event, @timetable) %>
+      <%= link_to "前のページに戻る", admin_event_timetable_path(@event, @timetable), data: { turbo: false } %>
     </div>
   </div>
 
@@ -29,24 +29,27 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6 mx-auto text-center">
-      <div id="msg"></div>
-      <canvas id="reader"></canvas>
+    <div class="col-md-6 mx-auto text-center" id="startButtonWrapper">
+      <button class="btn btn-primary mt-3 mb-3" id="startButton">QRコードを読み取る</button>
+    </div>
+
+    <%= form_with model: @new_attendance, url: admin_attendances_path, data: { turbo: false } do |f| %>
+      <%= f.hidden_field :qr_token, id: "tokenField" %>
+      <%= f.hidden_field :content_id, value: @content.id %>
+      <%= f.submit "情報取得中", class: "btn btn-secondary d-block mx-auto mt-3 invisible disabled", id: "submitButton" %>
+    <% end %>
+
+    <div class="row" id="readerWrapper" style="display: none;">
+      <div class="col-md-6 mx-auto text-center">
+        <div id="msg"></div>
+        <canvas id="reader"></canvas>
+      </div>
     </div>
   </div>
 
-  <%= form_with model: @new_attendance, url: admin_attendances_path do |f| %>
-    <%= f.hidden_field :qr_token, id: "tokenField" %>
-    <%= f.hidden_field :content_id, value: @content.id %>
-    <%= f.submit "出席を登録", class: "btn btn-primary d-block mx-auto" %>
-  <% end %>
-
-
-</div>
-
-<div class="row">
-   <div class="col-md-6 mx-auto text-start">
-      <div class="mt-3 mb-1 fw-bold" style="font-size: 90%">
+  <div class="row">
+    <div class="col-md-6 mx-auto text-start">
+      <div class="mt-3 mb-1 fw-bold bg-dark p-2 text-white" style="font-size: 90%">
         現在の参加者: <%= @attendances.count %> 人
       </div>
       <ul>
@@ -60,16 +63,34 @@
               <li>
                 出席日時: <%= attendance.created_at.strftime("%Y/%m/%d %H:%M") %>
               </li>
+              <li>
+                <%= link_to "出席を取り消し", admin_attendance_path(attendance), data: { turbo_method: :delete, turbo_confirm: "#{attendance.user.full_name}さんの出席を取り消しますか？" } %>
+              </li>
             </ul>
           </li>
         <% end %>
       </ul>
     </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 <script>
-    window.addEventListener("turbo:load", function () {
+    // エラーが発生した場合はページをリロードする
+    window.addEventListener("error", function (e) {
+        console.log(e)
+        window.location.reload();
+    });
+
+    const startButtonWrapper = document.getElementById("startButtonWrapper");
+    const startButton = document.getElementById("startButton");
+    const submitButton = document.getElementById("submitButton");
+    const readerWrapper = document.getElementById("readerWrapper");
+    let loop = null;
+
+    startButton.addEventListener("click", function () {
+        startButtonWrapper.style.display = "none";
+        readerWrapper.style.display = "block";
 
         let video = document.createElement("video");
         let canvas = document.getElementById("reader");
@@ -93,15 +114,51 @@
                 let img = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 let code = jsQR(img.data, img.width, img.height, {inversionAttempts: "dontInvert"});
                 if (code) {
-                    msg.innerText = "読み取りました";
+                    let token = code.data;
+                    submitButton.classList.remove("invisible");
+
+                    fetch(
+                        "/admin/users/qr",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-Token": document.getElementsByName("csrf-token")[0].content
+                            },
+                            credentials: 'include',
+                            body: JSON.stringify({qr_token: token})
+                        }
+                    ).then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error();
+                        }
+                    }).then((json) => {
+                        console.log(json)
+                        if (json["status"] === "found") {
+                            let name = json['user_name'];
+                            submitButton.value = `${name}さんの出席を登録`;
+                            submitButton.classList.remove("disabled");
+                            submitButton.classList.remove("btn-secondary");
+                            submitButton.classList.add("btn-primary");
+                        } else {
+                            submitButton.value = "ユーザが見つかりませんでした";
+                        }
+                    }).catch((error) => {
+                        submitButton.value = "ユーザの取得に失敗しました";
+                    });
+
+                    msg.style.display = "none";
                     canvas.style.display = "none";
+                    readerWrapper.style.display = "none";
                     document.getElementById("tokenField").value = code.data;
                     return
                 } else {
                     msg.innerText = "Detecting QR-Code...";
                 }
             }
-            setTimeout(startTick, 250);
+            loop = setTimeout(startTick, 50);
         }
 
         function drawRect(location) {
@@ -120,4 +177,15 @@
             ctx.stroke();
         }
     })
+
+    // beforeunload時にカメラ利用を停止
+    window.addEventListener("beforeunload", function () {
+        console.log("beforeunload");
+        clearTimeout(loop);
+        let video = document.querySelector("video");
+        if (video) {
+            video.pause();
+            video.srcObject = null;
+        }
+    });
 </script>

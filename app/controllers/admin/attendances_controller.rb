@@ -29,10 +29,23 @@ class Admin::AttendancesController < ApplicationController
 
     if @new_attendance.save
       redirect_to admin_event_timetable_content_path(@content.timetable.event, @content.timetable, @content),
-                  notice: "出席を取りました"
+                  notice: "#{@user.full_name}さんの出席を取りました"
     else
       redirect_to admin_event_timetable_content_path(@content.timetable.event, @content.timetable, @content),
-                  alert: "出席を取れませんでした"
+                  alert: "#{@user.full_name}さんの出席を取れませんでした"
+    end
+  end
+
+  def destroy
+    @attendance = Attendance.find(params[:id])
+    @content = @attendance.content
+
+    if @attendance.present? && @attendance.destroy
+      redirect_to admin_event_timetable_content_path(@content.timetable.event, @content.timetable, @content),
+                  notice: "出席を取り消しました"
+    else
+      redirect_to admin_event_timetable_content_path(@content.timetable.event, @content.timetable, @content),
+                  alert: "出席を取り消せませんでした"
     end
   end
 end

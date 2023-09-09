@@ -28,7 +28,8 @@ Rails.application.routes.draw do
         resources :contents, except: [:index, :destroy, :new]
       end
     end
-    resources :attendances, only: [:create]
+    resources :attendances, only: [:create, :destroy]
+    post "users/qr", to: "users#qr", as: "user_qr"
   end
 
   namespace :api do

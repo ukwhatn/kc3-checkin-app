@@ -10,6 +10,7 @@ class Common::AuthenticationsController < ApplicationController
 
     unless email.present?
       redirect_to auth_path, alert: "メールアドレスを入力してください"
+      return
     end
 
     token = EmailAuth.create_token(email)

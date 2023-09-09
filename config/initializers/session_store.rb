@@ -4,7 +4,7 @@ domain = ENV.fetch("APP_HOST", "localhost")
 
 Rails.application.config.session_store :redis_store,
                                        servers: %w(redis://redis:6379/0/session),
-                                       expire_in: 12.hours,
+                                       expire_in: 4.days,
                                        key:,
                                        domain:,
                                        secure:,

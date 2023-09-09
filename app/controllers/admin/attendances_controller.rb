@@ -23,13 +23,17 @@ class Admin::AttendancesController < ApplicationController
       return
     end
 
+    is_first_attendance_in_event = @content.timetable.event.attendances.find_by(user_id: @user.id).nil?
+
     @new_attendance = Attendance.new
     @new_attendance.content_id = @content.id
     @new_attendance.user_id = @user.id
 
     if @new_attendance.save
+      notice_prefix = is_first_attendance_in_event ? "【初回】" : ""
+
       redirect_to admin_event_timetable_content_path(@content.timetable.event, @content.timetable, @content),
-                  notice: "#{@user.full_name}さんの出席を取りました"
+                  notice: "#{notice_prefix}#{@user.full_name}さんの出席を登録しました"
     else
       redirect_to admin_event_timetable_content_path(@content.timetable.event, @content.timetable, @content),
                   alert: "#{@user.full_name}さんの出席を取れませんでした"

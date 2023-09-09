@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def get_api_key
+  def find_api_key
     if request.headers["X-Api-Key"].present?
       ApiKey.find_by(key_string: request.headers["X-Api-Key"])
     else
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_api_key
-    key = get_api_key
+    key = find_api_key
     unless key.present?
       render json: { message: "Invalid token" }, status: :unauthorized
     end

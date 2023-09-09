@@ -18,7 +18,7 @@ class Api::V1::AuthorizationsController < ApplicationController
   end
 
   def destroy
-    key = get_api_key
+    key = find_api_key
     if key.present?
       key.destroy
       render json: { message: "Token deleted" }, status: :ok

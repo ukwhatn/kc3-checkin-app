@@ -78,7 +78,7 @@
 <script>
     // エラーが発生した場合はページをリロードする
     window.addEventListener("error", function (e) {
-        alert(e.message)
+        console.log(e.message)
         window.location.reload();
     });
 

@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 
 # Rails 7
-gem "rails", "~> 7.0.7", ">= 7.0.7.2"
+gem "rails", "~> 8.1.3"
 
 # For asset pipeline
 gem "sprockets-rails"
@@ -15,7 +15,7 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # Web server
-gem "puma", "~> 6.3"
+gem "puma", "~> 6.4"
 
 # Use import maps
 gem "importmap-rails"
